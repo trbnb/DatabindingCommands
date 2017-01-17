@@ -1,5 +1,7 @@
 package de.trbnb.databindingcommands.command;
 
+import android.support.annotation.NonNull;
+
 public class SimpleCommand implements Command {
 
     private boolean isEnabled;
@@ -7,11 +9,11 @@ public class SimpleCommand implements Command {
 
     private EnabledChangedListener enabledChangedListener;
 
-    public SimpleCommand(Runnable action) {
+    public SimpleCommand(@NonNull Runnable action) {
         this(action, true);
     }
 
-    public SimpleCommand(Runnable action, boolean isEnabled) {
+    public SimpleCommand(@NonNull Runnable action, boolean isEnabled) {
         this.action = action;
         this.isEnabled = isEnabled;
     }
@@ -29,6 +31,14 @@ public class SimpleCommand implements Command {
 
     @Override
     public void execute() {
+        if(!isEnabled){
+            return;
+        }
+
+        if(action == null){
+            throw new IllegalStateException("Action is null on Command execution.");
+        }
+
         action.run();
     }
 
