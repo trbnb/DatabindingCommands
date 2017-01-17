@@ -37,20 +37,24 @@ Both have an extra constructor which lets you set the enabled-state from the sta
 
 A sample could look like this:
 
-    private Command buttonCommand = new SimpleCommand(new Runnable() {
-        @Override
-        public void run() {
-            Toast.makeText(context, "It just works!", Toast.LENGTH_LONG).show();
-        }
-    }, false);
+```java
+private Command buttonCommand = new SimpleCommand(new Runnable() {
+    @Override
+    public void run() {
+        Toast.makeText(context, "It just works!", Toast.LENGTH_LONG).show();
+    }
+}, false);
+```
 
 After the Command is present in your ViewModel you can now bind it to any View with the `android:clickCommand` attribute. Your code could then look like this:
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sample Button"
-        android:clickCommand="@{vm.buttonCommand}"/>
+```xml
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Sample Button"
+    android:clickCommand="@{vm.buttonCommand}"/>
+```
 
 A Command that is bound via this attribute will be executed on click events. The enabled-state of the Command is also bound to enabled-state of the View. At the moment there is only support for "onClick"-event.
 
@@ -58,12 +62,14 @@ A Command that is bound via this attribute will be executed on click events. The
 
 You can use this library by using [JitPack](https://jitpack.io/) by adding the following lines to your Gradle build script.
 
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
+```gradle
+repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+}
 
-    dependencies {
-        ...
-        compile 'com.github.trbnb:DatabindingCommands:-SNAPSHOT'
-    }
+dependencies {
+    ...
+    compile 'com.github.trbnb:DatabindingCommands:-SNAPSHOT'
+}
+```
