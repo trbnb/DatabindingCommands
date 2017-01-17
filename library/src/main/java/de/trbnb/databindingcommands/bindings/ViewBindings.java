@@ -11,7 +11,7 @@ public class ViewBindings {
     // no instance
     private ViewBindings(){}
 
-    @BindingAdapter({"android:command"})
+    @BindingAdapter({"android:clickCommand"})
     public static void bindCommand(final View view, final Command command){
         view.setEnabled(command.isEnabled());
 
