@@ -21,6 +21,7 @@ public class SimpleCommand implements Command {
         return isEnabled;
     }
 
+    @Override
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
         enabledChangedListener.onEnabledChanged(enabled);

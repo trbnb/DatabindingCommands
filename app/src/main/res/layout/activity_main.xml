@@ -30,7 +30,7 @@
             android:backgroundTint="@color/button_bg_tint"
             android:textColor="@color/button_text"
             android:text="Sample Button"
-            android:command="@{vm.buttonCommand}"/>
+            android:clickCommand="@{vm.buttonCommand}"/>
 
     </LinearLayout>
 </layout>
