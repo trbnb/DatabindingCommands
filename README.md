@@ -27,13 +27,14 @@ Sure, let's go.
 
 The first step is to create a Command in your ViewModel. Since [Command](https://github.com/trbnb/DatabindingCommands/blob/master/library/src/main/java/de/trbnb/databindingcommands/command/Command.java) is only an interface you have to choose which implementation you want to use. This library includes two from the start:
   - [SimpleCommand](https://github.com/trbnb/DatabindingCommands/blob/master/library/src/main/java/de/trbnb/databindingcommands/command/SimpleCommand.java)
-  - [MutableSimpleCommand](https://github.com/trbnb/DatabindingCommands/blob/master/library/src/main/java/de/trbnb/databindingcommands/command/MutableSimpleCommand.java)
+  - [RuleCommand](https://github.com/trbnb/DatabindingCommands/blob/master/library/src/main/java/de/trbnb/databindingcommands/command/RuleCommand.java)
 
-SimpleCommand lets you pass a Runnable in the constructor. This Runnable instance will then be run when the Command is executed.
+Both commands let you pass a Runnable in the constructor.
+This Runnable instance will then be run when the Command is executed.
 
-MutableSimpleCommand goes a step further and lets you change the Runnable later on if you want to.
-
-Both have an extra constructor which lets you set the enabled-state from the start.
+The difference between the two are:
+- The SimpleCommand lets you modify the enabled-state simply setting a boolean value. It also has an additional constructor that lets you define that initial enabled-state.
+- The RuleCommands enabled-state is defined by a Predicate.
 
 A sample could look like this:
 
