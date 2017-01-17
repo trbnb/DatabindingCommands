@@ -1,49 +1,52 @@
 package de.trbnb.databindingcommands.command;
 
-import android.support.annotation.NonNull;
-
-public class SimpleCommand implements Command {
+/**
+ * A {@link Command} implementation that can simply be set as en-/disabled with a boolean value.
+ */
+public final class SimpleCommand extends BaseCommandImpl {
 
     private boolean isEnabled;
-    protected Runnable action;
 
-    private EnabledChangedListener enabledChangedListener;
-
-    public SimpleCommand(@NonNull Runnable action) {
+    /**
+     * Creates a new, enabled SimpleCommand.
+     * The initial enabled-state can be set via the {@code isEnabled} argument.
+     *
+     * @param action The initial action that will be run when the Command is executed.
+     */
+    public SimpleCommand(Runnable action) {
         this(action, true);
     }
 
-    public SimpleCommand(@NonNull Runnable action, boolean isEnabled) {
-        this.action = action;
+    /**
+     * Creates a new SimpleCommand.
+     * The initial enabled-state can be set via the {@code isEnabled} argument.
+     *
+     * @param action The initial action that will be run when the Command is executed.
+     * @param isEnabled Has to be {@code true} if this Command should be enabled,
+     *                  otherwise {@code false}.
+     */
+    public SimpleCommand(Runnable action, boolean isEnabled) {
+        super(action);
+
         this.isEnabled = isEnabled;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEnabled() {
         return isEnabled;
     }
 
-    @Override
+    /**
+     * Set the enabled-state.
+     *
+     * @param enabled Has to be {@code true} if this Command should be enabled,
+     *                otherwise {@code false}.
+     */
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
-        enabledChangedListener.onEnabledChanged(enabled);
-    }
-
-    @Override
-    public void execute() {
-        if(!isEnabled){
-            return;
-        }
-
-        if(action == null){
-            throw new IllegalStateException("Action is null on Command execution.");
-        }
-
-        action.run();
-    }
-
-    @Override
-    public void setEnabledChangedListener(EnabledChangedListener listener) {
-        this.enabledChangedListener = listener;
+        triggerEnabledChangedListener();
     }
 }
