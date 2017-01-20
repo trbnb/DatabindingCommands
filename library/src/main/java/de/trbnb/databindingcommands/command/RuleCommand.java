@@ -10,7 +10,7 @@ import de.trbnb.databindingcommands.util.Predicate;
  *
  * The Predicates result will be cached. A refresh can be triggered by calling {@code onEnabledChanged}.
  */
-public final class RuleCommand extends BaseCommandImpl {
+public class RuleCommand extends BaseCommandImpl {
 
     private final Predicate enabledRule;
 
@@ -33,14 +33,14 @@ public final class RuleCommand extends BaseCommandImpl {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return cachedEnabledRuleResult;
     }
 
     /**
      * This method has to be called when the result of the rule might have changed.
      */
-    public void onEnabledChanged(){
+    public final void onEnabledChanged(){
         evaluateEnabledRuleResult();
     }
 

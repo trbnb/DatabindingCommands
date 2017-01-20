@@ -3,7 +3,7 @@ package de.trbnb.databindingcommands.command;
 /**
  * A {@link Command} implementation that can simply be set as en-/disabled with a boolean value.
  */
-public final class SimpleCommand extends BaseCommandImpl {
+public class SimpleCommand extends BaseCommandImpl {
 
     private boolean isEnabled;
 
@@ -35,7 +35,7 @@ public final class SimpleCommand extends BaseCommandImpl {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return isEnabled;
     }
 
@@ -45,7 +45,7 @@ public final class SimpleCommand extends BaseCommandImpl {
      * @param enabled Has to be {@code true} if this Command should be enabled,
      *                otherwise {@code false}.
      */
-    public void setEnabled(boolean enabled) {
+    public final void setEnabled(boolean enabled) {
         isEnabled = enabled;
         triggerEnabledChangedListener();
     }
