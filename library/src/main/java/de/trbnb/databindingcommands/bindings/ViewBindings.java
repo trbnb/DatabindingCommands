@@ -1,10 +1,11 @@
 package de.trbnb.databindingcommands.bindings;
 
 import android.databinding.BindingAdapter;
+import android.databinding.Observable;
 import android.view.View;
 
+import de.trbnb.databindingcommands.BR;
 import de.trbnb.databindingcommands.command.Command;
-import de.trbnb.databindingcommands.command.EnabledChangedListener;
 
 public class ViewBindings {
 
@@ -15,10 +16,12 @@ public class ViewBindings {
     public static void bindCommand(final View view, final Command command){
         view.setEnabled(command.isEnabled());
 
-        command.setEnabledChangedListener(new EnabledChangedListener() {
+        command.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
-            public void onEnabledChanged(boolean enabled) {
-                view.setEnabled(enabled);
+            public void onPropertyChanged(Observable observable, int propertyId) {
+                if(propertyId == BR.enabled){
+                    view.setEnabled(command.isEnabled());
+                }
             }
         });
 

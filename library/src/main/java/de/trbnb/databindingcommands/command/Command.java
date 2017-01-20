@@ -1,9 +1,12 @@
 package de.trbnb.databindingcommands.command;
 
+import android.databinding.Bindable;
+import android.databinding.Observable;
+
 /**
  * The basic contract for command implementations.
  */
-public interface Command {
+public interface Command extends Observable {
 
     /**
      * Determines whether this Command is enabled or not.
@@ -11,6 +14,7 @@ public interface Command {
      *
      * @return Returns {@code true} if this Command is enabled, otherwise {@code false}.
      */
+    @Bindable
     boolean isEnabled();
 
     /**
@@ -19,11 +23,4 @@ public interface Command {
      * This method does nothing if this Command is not enabled.
      */
     void execute();
-
-    /**
-     * Sets a listener that will be called if the result of {@code isEnabled} might have changed.
-     *
-     * @param listener The new listener.
-     */
-    void setEnabledChangedListener(EnabledChangedListener listener);
 }

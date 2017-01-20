@@ -1,5 +1,9 @@
 package de.trbnb.databindingcommands.command;
 
+import android.databinding.BaseObservable;
+
+import de.trbnb.databindingcommands.BR;
+
 /**
  * Base class for standard {@link Command} implementations.
  *
@@ -10,11 +14,9 @@ package de.trbnb.databindingcommands.command;
  * An implementation of the enabled-state is not given.
  */
 @SuppressWarnings("WeakerAccess")
-abstract class BaseCommandImpl implements Command {
+abstract class BaseCommandImpl extends BaseObservable implements Command {
 
     private Runnable action;
-
-    private EnabledChangedListener enabledChangedListener;
 
     /**
      * @param action The initial action that will be run when the Command is executed.
@@ -42,21 +44,10 @@ abstract class BaseCommandImpl implements Command {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setEnabledChangedListener(EnabledChangedListener listener) {
-        this.enabledChangedListener = listener;
-    }
-
-    /**
      * This method should be called when the enabled-state might have changed.
-     * The registered {@link EnabledChangedListener} will be called.
      */
     protected final void triggerEnabledChangedListener(){
-        if(enabledChangedListener != null){
-            enabledChangedListener.onEnabledChanged(isEnabled());
-        }
+        notifyPropertyChanged(BR.enabled);
     }
 
     /**
