@@ -1,11 +1,11 @@
-#Commands for Android Databinding
+# Commands for Android Databinding
 
 With Databinding it is possible to build Android apps with MVVM in a way that is similar to WPF. So it naturally makes sense to look at practices and patterns from that platform and see if they work in Android development.
 
 One of the basic features of WPF are [Commands](https://msdn.microsoft.com/en-us/library/ms752308(v=vs.110).aspx).
 This library is an implementation of that pattern for Android.
 
-#What are Commands and what are they good for?
+# What are Commands and what are they good for?
 
 Commands have two functions.
 
