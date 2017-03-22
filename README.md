@@ -21,6 +21,8 @@ A Command is bound to the "Click" event of a button. This has the following cons
 - When the button is clicked the Command is executed.
 - The button is only enabled if the Command can be executed.
 
+On execution a Context instance is passed. This Context is always retrieved by calling `getContext()` on the bound View.
+
 # I want to see code!
 
 Sure, let's go.
@@ -39,9 +41,9 @@ The difference between the two are:
 A sample could look like this:
 
 ```java
-private Command buttonCommand = new SimpleCommand(new Runnable() {
+private Command buttonCommand = new SimpleCommand(new Action<Context>() {
     @Override
-    public void run() {
+    public void invoke(Context context) {
         Toast.makeText(context, "It just works!", Toast.LENGTH_LONG).show();
     }
 }, false);

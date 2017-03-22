@@ -13,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setVm(new MainViewModel(getApplicationContext()));
+        binding.setVm(new MainViewModel());
     }
 }

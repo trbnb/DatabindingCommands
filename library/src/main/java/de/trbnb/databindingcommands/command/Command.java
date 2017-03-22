@@ -1,5 +1,6 @@
 package de.trbnb.databindingcommands.command;
 
+import android.content.Context;
 import android.databinding.Bindable;
 import android.databinding.Observable;
 
@@ -21,6 +22,8 @@ public interface Command extends Observable {
      * Executes the command.
      *
      * This method does nothing if this Command is not enabled.
+     *
+     * @param context The context of the view that executes this Command.
      */
-    void execute();
+    void execute(Context context);
 }

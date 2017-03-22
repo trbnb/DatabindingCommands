@@ -1,8 +1,10 @@
 package de.trbnb.databindingcommands.command;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
-import de.trbnb.databindingcommands.util.Predicate;
+import de.trbnb.databindingcommands.functions.Action;
+import de.trbnb.databindingcommands.functions.Predicate;
 
 /**
  * A {@link Command} that determines if it is enabled via a {@link Predicate}.
@@ -22,7 +24,7 @@ public class RuleCommand extends BaseCommandImpl {
      * @param action The initial action that will be run when the Command is executed.
      * @param enabledRule The initial rule that determines if this Command is enabled.
      */
-    public RuleCommand(Runnable action, @NonNull Predicate enabledRule) {
+    public RuleCommand(Action<Context> action, @NonNull Predicate enabledRule) {
         super(action);
 
         this.enabledRule = enabledRule;

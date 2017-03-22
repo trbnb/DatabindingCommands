@@ -1,8 +1,10 @@
 package de.trbnb.databindingcommands.command;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 
 import de.trbnb.databindingcommands.BR;
+import de.trbnb.databindingcommands.functions.Action;
 
 /**
  * Base class for standard {@link Command} implementations.
@@ -16,12 +18,12 @@ import de.trbnb.databindingcommands.BR;
 @SuppressWarnings("WeakerAccess")
 abstract class BaseCommandImpl extends BaseObservable implements Command {
 
-    private Runnable action;
+    private Action<Context> action;
 
     /**
      * @param action The initial action that will be run when the Command is executed.
      */
-    protected BaseCommandImpl(Runnable action){
+    protected BaseCommandImpl(Action<Context> action){
         setAction(action);
     }
 
@@ -31,7 +33,7 @@ abstract class BaseCommandImpl extends BaseObservable implements Command {
      * @throws IllegalStateException If no action was set.
      */
     @Override
-    public final void execute() {
+    public final void execute(Context context) {
         if(!isEnabled()){
             return;
         }
@@ -40,7 +42,7 @@ abstract class BaseCommandImpl extends BaseObservable implements Command {
             throw new IllegalStateException("Action is null on Command execution.");
         }
 
-        action.run();
+        action.invoke(context);
     }
 
     /**
@@ -55,7 +57,7 @@ abstract class BaseCommandImpl extends BaseObservable implements Command {
      *
      * @param action The new action.
      */
-    public final void setAction(Runnable action) {
+    public final void setAction(Action<Context> action) {
         this.action = action;
     }
 }
