@@ -1,8 +1,7 @@
 package de.trbnb.databindingcommands.command
 
-import android.databinding.BaseObservable
-import de.trbnb.databindingcommands.BR
 import de.trbnb.databindingcommands.DisabledCommandInvocationException
+import java.lang.ref.WeakReference
 
 /**
  * Base class for standard [Command] implementations.
@@ -11,9 +10,11 @@ import de.trbnb.databindingcommands.DisabledCommandInvocationException
  *
  * @param action The initial action that will be run when the Command is executed.
  */
-abstract class BaseCommandImpl<in P, out R>(val action: (P) -> R) : BaseObservable(), Command<P, R> {
+abstract class BaseCommandImpl<in P, out R>(val action: (P) -> R) : Command<P, R> {
 
-    override fun invoke(parameter: P): R {
+    private val listeners: MutableList<WeakReference<(Boolean) -> Unit>> = mutableListOf()
+
+    override final fun invoke(parameter: P): R {
         if(!isEnabled){
             throw DisabledCommandInvocationException()
         }
@@ -25,6 +26,22 @@ abstract class BaseCommandImpl<in P, out R>(val action: (P) -> R) : BaseObservab
      * This method should be called when the result of [isEnabled] might have changed.
      */
     protected fun triggerEnabledChangedListener() {
-        notifyPropertyChanged(BR.enabled)
+        listeners.forEach {
+            it.get()?.invoke(isEnabled)
+        }
     }
+
+    override fun addEnabledListener(listener: (Boolean) -> Unit) {
+        listeners.add(WeakReference(listener))
+    }
+
+    override fun removeEnabledListener(listener: (Boolean) -> Unit) {
+        listeners.removeAll { it.get() == listener }
+    }
+
+    override fun clearEnabledListeners(listener: (Boolean) -> Unit) {
+        listeners.clear()
+    }
+
+
 }

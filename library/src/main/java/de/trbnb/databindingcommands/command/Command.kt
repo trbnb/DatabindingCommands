@@ -1,22 +1,18 @@
 package de.trbnb.databindingcommands.command
 
-import android.databinding.Bindable
-import android.databinding.Observable
-
 /**
  * The basic contract for command implementations.
  *
  * @param P The parameter type for invocation. An instance of this has to be passed for invocation.
  * @param R The return type for invocation. An instance of this has to be returned from [invoke].
  */
-interface Command<in P, out R> : Observable {
+interface Command<in P, out R> {
 
     /**
      * Determines whether this Command is enabled or not.
      *
      * @return Returns `true` if this Command is enabled, otherwise `false`.
      */
-    @get:Bindable
     val isEnabled: Boolean
 
     /**
@@ -39,4 +35,21 @@ interface Command<in P, out R> : Observable {
     fun invokeSafely(parameter: P): R? {
         return if (isEnabled) invoke(parameter) else null
     }
+
+    /**
+     * Adds a listener that is notified when the value of [isEnabled] might have changed.
+     */
+    fun addEnabledListener(listener: (Boolean) -> Unit)
+
+    /**
+     * Removes a listener that is used for listening to changes to [isEnabled].
+     * A listener that is passed to this method will not be notified anymore.
+     */
+    fun removeEnabledListener(listener: (Boolean) -> Unit)
+
+    /**
+     * Removes all listeners that are used for listening to changes to [isEnabled].
+     * No previously added listeners will be notified anymore.
+     */
+    fun clearEnabledListeners(listener: (Boolean) -> Unit)
 }
