@@ -3,19 +3,15 @@ package de.trbnb.databindingcommands.bindings
 import android.content.Context
 import android.databinding.BindingAdapter
 import android.view.View
-import de.trbnb.databindingcommands.BR
-import de.trbnb.databindingcommands.addPropertyChangedCallback
 import de.trbnb.databindingcommands.command.Command
 
 @BindingAdapter("android:clickCommand")
 fun View.bindClickCommand(command: Command<Unit, *>) {
     isEnabled = command.isEnabled
 
-    command.addPropertyChangedCallback { _, propertyId ->
-        if(propertyId == BR.enabled){
-            post {
-                isEnabled = command.isEnabled
-            }
+    command.addEnabledListener {
+        post {
+            isEnabled = it
         }
     }
 
@@ -28,11 +24,9 @@ fun View.bindClickCommand(command: Command<Unit, *>) {
 fun View.bindClickCommandWithContext(command: Command<Context, *>) {
     isEnabled = command.isEnabled
 
-    command.addPropertyChangedCallback { _, propertyId ->
-        if(propertyId == BR.enabled){
-            post {
-                isEnabled = command.isEnabled
-            }
+    command.addEnabledListener {
+        post {
+            isEnabled = it
         }
     }
 

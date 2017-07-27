@@ -25,6 +25,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -34,6 +38,7 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    kapt 'com.android.databinding:compiler:2.3.3'
 }
 repositories {
     mavenCentral()
