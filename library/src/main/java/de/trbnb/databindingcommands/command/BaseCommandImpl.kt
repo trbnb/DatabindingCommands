@@ -39,7 +39,7 @@ abstract class BaseCommandImpl<in P, out R>(val action: (P) -> R) : Command<P, R
         listeners.removeAll { it.get() == listener }
     }
 
-    override fun clearEnabledListeners(listener: (Boolean) -> Unit) {
+    override fun clearEnabledListeners() {
         listeners.clear()
     }
 

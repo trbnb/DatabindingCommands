@@ -51,5 +51,5 @@ interface Command<in P, out R> {
      * Removes all listeners that are used for listening to changes to [isEnabled].
      * No previously added listeners will be notified anymore.
      */
-    fun clearEnabledListeners(listener: (Boolean) -> Unit)
+    fun clearEnabledListeners()
 }
