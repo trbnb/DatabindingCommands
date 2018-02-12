@@ -3,10 +3,9 @@ package de.trbnb.databindingcommands.command
 /**
  * The basic contract for command implementations.
  *
- * @param P The parameter type for invocation. An instance of this has to be passed for invocation.
  * @param R The return type for invocation. An instance of this has to be returned from [invoke].
  */
-interface Command<in P, out R> {
+interface Command<out R> {
 
     /**
      * Determines whether this Command is enabled or not.
@@ -18,22 +17,18 @@ interface Command<in P, out R> {
     /**
      * Invokes the Command.
      *
-     * If [isEnabled] returns `false` a [de.trbnb.databindingcommands.DisabledCommandInvocationException]
-     * will be thrown.
-     *
-     * @param parameter A parameter instance for an invocation.
+     * @throws de.trbnb.databindingcommands.DisabledCommandInvocationException If [isEnabled] returns `false`.
      * @return A return type instance.
      */
-    operator fun invoke(parameter: P): R
+    operator fun invoke(): R
 
     /**
      * Invokes the Command only if [isEnabled] equals `true`.
      *
-     * @param parameter A parameter instance for an invocation.
      * @return A return type instance if [isEnabled] equals `true` before invocation, otherwise `null`.
      */
-    fun invokeSafely(parameter: P): R? {
-        return if (isEnabled) invoke(parameter) else null
+    fun invokeSafely(): R? {
+        return if (isEnabled) invoke() else null
     }
 
     /**

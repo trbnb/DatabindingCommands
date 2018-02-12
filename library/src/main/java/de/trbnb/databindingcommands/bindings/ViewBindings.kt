@@ -1,12 +1,19 @@
 package de.trbnb.databindingcommands.bindings
 
-import android.content.Context
 import android.databinding.BindingAdapter
 import android.view.View
 import de.trbnb.databindingcommands.command.Command
 
 @BindingAdapter("android:clickCommand")
-fun View.bindClickCommand(command: Command<Unit, *>) {
+fun View.bindClickCommand(command: Command<*>) {
+    bindEnabled(command)
+
+    setOnClickListener {
+        command.invokeSafely()
+    }
+}
+
+private fun View.bindEnabled(command: Command<*>) {
     isEnabled = command.isEnabled
 
     command.addEnabledListener {
@@ -14,37 +21,15 @@ fun View.bindClickCommand(command: Command<Unit, *>) {
             isEnabled = it
         }
     }
-
-    setOnClickListener {
-        command.invokeSafely(Unit)
-    }
 }
 
-@BindingAdapter("android:clickCommand")
-fun View.bindClickCommandWithContext(command: Command<Context, *>) {
-    isEnabled = command.isEnabled
-
-    command.addEnabledListener {
-        post {
-            isEnabled = it
+@BindingAdapter("android:longClickCommand")
+fun View.bindLongClickCommand(command: Command<*>) {
+    setOnLongClickListener {
+        if (command.isEnabled) {
+            command.invokeSafely() as? Boolean ?: true
+        } else {
+            false
         }
-    }
-
-    setOnClickListener {
-        command.invokeSafely(context)
-    }
-}
-
-@BindingAdapter("android:longClickCommand")
-fun View.bindLongClickCommand(command: Command<Unit, *>){
-    setOnLongClickListener {
-        command.invokeSafely(Unit) as? Boolean ?: true
-    }
-}
-
-@BindingAdapter("android:longClickCommand")
-fun View.bindLongClickCommandWithContext(command: Command<Context, *>){
-    setOnLongClickListener {
-        command.invokeSafely(context) as? Boolean ?: true
     }
 }
