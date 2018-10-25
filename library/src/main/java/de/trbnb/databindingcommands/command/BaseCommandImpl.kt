@@ -10,6 +10,7 @@ import java.lang.ref.WeakReference
  *
  * @param action The initial action that will be run when the Command is executed.
  */
+@Deprecated("This library is deprecated and migrated into MvvmBase (https://github.com/trbnb/mvvmbase)")
 abstract class BaseCommandImpl<out R>(private val action: () -> R) : Command<R> {
 
     private val listeners: MutableList<WeakReference<(Boolean) -> Unit>> = mutableListOf()

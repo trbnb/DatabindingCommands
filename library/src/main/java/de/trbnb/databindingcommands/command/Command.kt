@@ -5,6 +5,7 @@ package de.trbnb.databindingcommands.command
  *
  * @param R The return type for invocation. An instance of this has to be returned from [invoke].
  */
+@Deprecated("This library is deprecated and migrated into MvvmBase (https://github.com/trbnb/mvvmbase)")
 interface Command<out R> {
 
     /**

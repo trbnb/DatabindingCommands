@@ -9,6 +9,7 @@ package de.trbnb.databindingcommands.command
  * @param action The initial action that will be run when the Command is executed.
  * @param enabledRule The initial rule that determines if this Command is enabled.
  */
+@Deprecated("This library is deprecated and migrated into MvvmBase (https://github.com/trbnb/mvvmbase)")
 open class RuleCommand<out R>(action: () -> R, private val enabledRule: () -> Boolean) : BaseCommandImpl<R>(action) {
 
     override var isEnabled: Boolean = enabledRule()
